@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .comp-navlink {
+        @apply flex items-center font-bold duration-300 text-gray-600 hover:text-black hover:underline;
+    }
+}
