@@ -1,4 +1,5 @@
 tinymce.init({
     selector: 'textarea#tinymce',
-    suffix: '.min'
+    suffix: '.min',
+    menubar: 'edit insert format'
 })

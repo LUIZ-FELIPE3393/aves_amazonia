@@ -26,16 +26,20 @@
         <div class="gap-4 p-4 w-full bg-lime-200 mb-4">
             <form class="space-y-2" action="/add-bird" method="post">
                 <div class="grid grid-cols-6">
-                    <label for="name" class="bg-lime-800 mr-2 text-white">Nome popular: </label>
+                    <label for="name" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Nome popular </label>
                     <input class="bg-white" type="text" name="name" id="name">
                 </div>
                 <div class="grid grid-cols-6">
-                    <label for="binomial" class="bg-lime-800 mr-2 text-white">Nome científico:</label>
+                    <label for="binomial" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Nome científico</label>
                     <input type="text" name="binomial" id="binomial">
                 </div>
                 <div class="grid grid-cols-6">
-                    <label for="extinction" class="bg-lime-800 mr-2 text-white">Risco de extinção:</label>
+                    <label for="extinction" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Risco de extinção</label>
                     <input type="range" name="extinction" id="extinction" value="0" min="0" max="6">
+                </div>
+                <div class="grid grid-cols-6">
+                    <label for="images" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Galeria</label>
+                    <input class="col-span-2" type="file" accept="image/png, image/jpeg, image/webp" name="images" id="images" multiple>
                 </div>
                 <div>
                     <label for="article" class="inline">Artigo de descrição:</label>
