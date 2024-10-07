@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/public/output.css" rel="stylesheet">
+    <title>Aves Amazônia</title>
+</head>
+<body>
+    <!--Header-->
+    <nav class="border-b-2 mb-4">
+        <ul class="flex justify-around p-4">
+            <div>
+                <li><a href="/"><img class="h-10" src="/public/images/Logo.png" alt="Aves Amazônia" srcset=""></a></li>
+            </div>
+            <div class="flex justify-between w-96">
+                <li class="flex"><a class="comp-navlink" href="#">Trabalhe conosco</a></li>
+                <li class="flex"><a class="comp-navlink" href="#">Nossa Equipe</a></li>
+                <li class="flex"><a class="comp-navlink" href="#">Agendar visita</a></li>
+            </div> 
+        </ul>
+    </nav>
+    <!--Content-->
+    <main class="max-w-[1280px] mr-auto ml-auto">
+        <h1 class="text-xl text-center font-bold mb-4">Criação de registro de ave</h1>
+        <div class="gap-4 p-4 w-full bg-lime-200 mb-4">
+            <form class="space-y-2" action="/add-bird" method="post">
+                <div class="grid grid-cols-6">
+                    <label for="name" class="bg-lime-800 mr-2 text-white">Nome popular: </label>
+                    <input class="bg-white" type="text" name="name" id="name">
+                </div>
+                <div class="grid grid-cols-6">
+                    <label for="binomial" class="bg-lime-800 mr-2 text-white">Nome científico:</label>
+                    <input type="text" name="binomial" id="binomial">
+                </div>
+                <div class="grid grid-cols-6">
+                    <label for="extinction" class="bg-lime-800 mr-2 text-white">Risco de extinção:</label>
+                    <input type="range" name="extinction" id="extinction" value="0" min="0" max="6">
+                </div>
+                <div>
+                    <label for="article" class="inline">Artigo de descrição:</label>
+                    <textarea id="tinymce" name="description">Escreva o artigo aqui...</textarea>
+                </div>
+                <button type="submit">Finalizar</button>
+            </form>
+        </div>
+    </main>
+    <!--Footer-->
+    <footer class="bg-lime-600 p-8">
+        <p class="text-center">Copyright © 2024 Luiz Felipe Oliveira Dutra da Costa. Todos os direitos reservados.</p>
+    </footer>
+    <script type="application/javascript" src="/tinymce.min.js"></script>
+    <script type="application/javascript" src="/public/js/tinymce-config.js"></script>
+</body>
+</html>
