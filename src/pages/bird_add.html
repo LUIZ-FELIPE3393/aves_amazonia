@@ -13,10 +13,9 @@
             <div>
                 <li><a href="/"><img class="h-10" src="/public/images/Logo.png" alt="Aves Amazônia" srcset=""></a></li>
             </div>
-            <div class="flex justify-between w-96">
-                <li class="flex"><a class="comp-navlink" href="#">Trabalhe conosco</a></li>
-                <li class="flex"><a class="comp-navlink" href="#">Nossa Equipe</a></li>
-                <li class="flex"><a class="comp-navlink" href="#">Agendar visita</a></li>
+            <div class="flex justify-around w-96">
+                <li class="flex"><a class="comp-navlink" href="#">Gerenciar posts</a></li>
+                <li class="flex"><a class="comp-navlink" href="#">Gerenciar galeria</a></li>
             </div> 
         </ul>
     </nav>
@@ -42,10 +41,10 @@
                     <input class="col-span-2" type="file" accept="image/png, image/jpeg, image/webp" name="images" id="images" multiple>
                 </div>
                 <div>
-                    <label for="article" class="inline">Artigo de descrição:</label>
+                    <p class="font-bold mb-4 text-lg">Artigo de descrição:</p>
                     <textarea id="tinymce" name="description">Escreva o artigo aqui...</textarea>
                 </div>
-                <button type="submit">Finalizar</button>
+                <button class="p-2 bg-lime-800 rounded font-bold text-white" type="submit">Finalizar</button>
             </form>
         </div>
     </main>
