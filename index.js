@@ -1,8 +1,11 @@
 const express = require('express')
 const path = require('path')
+const fs = require('fs')
 const BirdRoutes = require('./src/routes/birdRoutes')
 const app = express()
 const port = 8989
+
+global.appRoot = path.resolve(__dirname);
 
 app.use(express.urlencoded({ extended: false }))
 app.use('/', express.static(path.join(__dirname, 'node_modules', 'tinymce')))
@@ -19,10 +22,6 @@ app.get('/gerenciar-ave', (req, res) => {
 
 app.get('/adicionar-ave', (req, res) => {
     res.sendFile(path.join(__dirname, './src/pages/bird_add.html'))
-})
-
-app.post('/add-bird', (req, res) => {
-    console.log(req.body)
 })
 
 //Rotas banco

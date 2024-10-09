@@ -23,7 +23,7 @@
     <main class="max-w-[1280px] mr-auto ml-auto">
         <h1 class="text-xl text-center font-bold mb-4">Criação de registro de ave</h1>
         <div class="gap-4 p-4 w-full bg-lime-200 mb-4">
-            <form class="space-y-2" action="/add-bird" method="post">
+            <form class="space-y-2" enctype="multipart/form-data" action="/bird" method="post">
                 <div class="grid grid-cols-6">
                     <label for="name" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Nome popular </label>
                     <input class="bg-white" type="text" name="name" id="name">

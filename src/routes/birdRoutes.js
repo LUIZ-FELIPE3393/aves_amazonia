@@ -1,15 +1,18 @@
 const BirdRoutes = require('express').Router()
-const queryDatabase = require('../db.js')
+const {queryDatabase, tranAddBird} = require('../db.js')
+const multer = require('multer')
 
-BirdRoutes.post('/', (req, res) => {
-    queryDatabase(`CALL sp_add_bird('a', 'a', 3, 'a', 'a', 'a;b;c')`)
-        .then(res => {
-            res.send(res)
-        })
-        .catch(sql_err => {
-            res.status(500).send(sql_err)
-            return
-        })
+const upload = multer({dest: './uploads'})
+
+const fileErrorHandler = async (err, res) => {
+    await queryDatabase('ROLLBACK')
+    res.status(500).send('File upload error: ' + JSON.stringify(err))   
+}
+
+BirdRoutes.post('/', upload.array('images'), async (req, res) => {
+    tranAddBird(req, res).then(json => {
+        console.log(json)
+    })
 })
 
 BirdRoutes.get('/', (req, res) => {
