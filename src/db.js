@@ -70,7 +70,6 @@ async function tranAddBird(req, res) {
         }   
     
         connection.commit()
-        res.status(200).contentType('text/plain').end('Registro de ave criado')
         return resultSet
     } catch (err) {
         for (const file of req.files) {

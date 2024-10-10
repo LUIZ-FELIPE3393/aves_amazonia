@@ -12,6 +12,7 @@ const fileErrorHandler = async (err, res) => {
 BirdRoutes.post('/', upload.array('images'), async (req, res) => {
     tranAddBird(req, res).then(json => {
         console.log(json)
+        res.redirect('/gerenciar-ave')
     })
 })
 

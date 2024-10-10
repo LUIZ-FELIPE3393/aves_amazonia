@@ -30,6 +30,9 @@ modalNaoBtn.addEventListener('click', (e) => {
 
 modalSimBtn.addEventListener('click', (e) => {
     axios.delete('/bird/' + aveDeleteID)
-        .then(res => console.log(res))
+        .then(res => {
+            console.log(res)
+            location.reload()
+        })
         .catch(err => console.error(err))
 })
