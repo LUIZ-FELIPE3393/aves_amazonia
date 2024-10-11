@@ -1,5 +1,6 @@
 const BirdRoutes = require('express').Router()
-const {queryDatabase, tranAddBird} = require('../db.js')
+const {queryDatabase} = require('../db.js')
+const tranAddBird = require('../dao/bird-dao.js')
 const multer = require('multer')
 
 const upload = multer({dest: './uploads'})
@@ -9,10 +10,13 @@ const fileErrorHandler = async (err, res) => {
     res.status(500).send('File upload error: ' + JSON.stringify(err))   
 }
 
-BirdRoutes.post('/', upload.array('images'), async (req, res) => {
-    tranAddBird(req, res).then(json => {
-        console.log(json)
-        res.redirect('/gerenciar-ave')
+BirdRoutes.put('/', upload.array('images'), async (req, res) => {
+    queryDatabase(`SELECT * FROM bird_data WHERE bdt_nome = ${req.body['name']}`).then(result => {
+        console.log(result)
+        tranAddBird(req, res).then(json => {
+            console.log(json)
+            res.redirect('/gerenciar-ave')
+        })
     })
 })
 
@@ -30,8 +34,30 @@ BirdRoutes.get('/', (req, res) => {
         });
 })
 
+BirdRoutes.get('/:id', (req, res) => {
+    queryDatabase(`SELECT bdt_nome, bdt_nomecientifico, bdt_descricao, bdt_escextincao
+                    FROM bird_data
+                    WHERE bdt_id = ${req.params['id']}
+                    `)
+        .then(birdJson => {
+            queryDatabase('SELECT bim_image FROM bird_image WHERE bim_bdt_id = ' + req.params['id']).then(imageJson => {
+                var imageArr = []
+                for (const image of imageJson) {
+                    imageArr.push(image['bim_image'])
+                }
+                birdJson[0]['images'] = imageArr;
+
+                res.json(birdJson[0])
+            })
+        })
+        .catch(sql_err => {
+            res.status(500).send(sql_err)
+            return
+        });
+})
+
 BirdRoutes.get('/like/:letter', (req, res) => {
-    queryDatabase(`SELECT * FROM bird_data WHILE bdt_nome LIKE '${req.params.letter}'`)
+    queryDatabase(`SELECT * FROM bird_data WHILE bdt_nome LIKE '${req.params['letter']}'`)
         .then(json => {
             res.json(json)
         })

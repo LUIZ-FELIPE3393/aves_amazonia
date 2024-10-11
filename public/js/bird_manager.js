@@ -8,7 +8,6 @@ let aveDeleteID = null;
 //Read data from Database
 axios.get('/bird')
     .then(json => {
-        console.log(json)
         for (const bird of json.data) {
             const birdElement = document.createElement('div')
             birdElement.setAttribute('class', 'flex bg-lime-100 shadow rounded')
@@ -20,12 +19,20 @@ axios.get('/bird')
                 modal.classList.remove('hidden')
                 aveDeleteID = bird['bdt_id']
             })
+            birdElement.querySelector("#btn-edit").addEventListener('click', (e) => {
+                localStorage.setItem('editBird', bird['bdt_id'])
+                location.replace('/adicionar-ave')
+            })
             document.querySelector('#bird-list').appendChild(birdElement)
         }
     })
 
 modalNaoBtn.addEventListener('click', (e) => {
     modal.classList.add('hidden')
+})
+
+document.querySelector('#add-bird').addEventListener('click', () => {
+    localStorage.setItem('editBird', 'None')
 })
 
 modalSimBtn.addEventListener('click', (e) => {

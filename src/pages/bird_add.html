@@ -15,7 +15,7 @@
             </div>
             <div class="flex justify-around w-96">
                 <li class="flex"><a class="comp-navlink" href="#">Gerenciar posts</a></li>
-                <li class="flex"><a class="comp-navlink" href="#">Gerenciar galeria</a></li>
+                <li class="flex"><a class="comp-navlink" href="/gerenciar-ave">Gerenciar galeria</a></li>
             </div> 
         </ul>
     </nav>
@@ -24,25 +24,28 @@
         <h1 class="text-xl text-center font-bold mb-4">Criação de registro de ave</h1>
         <div class="gap-4 p-4 w-full bg-lime-200 mb-4">
             <form class="space-y-2" enctype="multipart/form-data" action="/bird" method="post">
-                <div class="grid grid-cols-6">
+                <div class="grid gap-2 grid-cols-3 lg:grid-cols-6">
                     <label for="name" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Nome popular </label>
-                    <input class="bg-white" type="text" name="name" id="name">
+                    <input class="bg-white col-span-2" type="text" name="name" id="name">
                 </div>
-                <div class="grid grid-cols-6">
+                <div class="grid gap-2 grid-cols-3 lg:grid-cols-6">
                     <label for="binomial" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Nome científico</label>
-                    <input type="text" name="binomial" id="binomial">
+                    <input class="col-span-2" type="text" name="binomial" id="binomial">
                 </div>
-                <div class="grid grid-cols-6">
+                <div class="grid gap-2 grid-cols-3 lg:grid-cols-6">
                     <label for="extinction" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Risco de extinção</label>
-                    <input type="range" name="extinction" id="extinction" value="0" min="0" max="6">
+                    <input class="col-span-2" type="range" name="extinction" id="extinction" value="0" min="0" max="6">
                 </div>
-                <div class="grid grid-cols-6">
+                <div class="grid gap-2 grid-cols-3 lg:grid-cols-6">
                     <label for="images" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Galeria</label>
                     <input class="col-span-2" type="file" accept="image/png, image/jpeg, image/webp" name="images" id="images" multiple>
                 </div>
+                <div id="galeria" class="grid grid-cols-3 lg:grid-cols-6">
+
+                </div>
                 <div>
                     <p class="font-bold mb-4 text-lg">Artigo de descrição:</p>
-                    <textarea id="tinymce" name="description">Escreva o artigo aqui...</textarea>
+                    <textarea id="tinymce" name="description" id="description">Escreva o artigo aqui...</textarea>
                 </div>
                 <button class="p-2 bg-lime-800 rounded font-bold text-white" type="submit">Finalizar</button>
             </form>
@@ -52,7 +55,13 @@
     <footer class="bg-lime-600 p-8">
         <p class="text-center">Copyright © 2024 Luiz Felipe Oliveira Dutra da Costa. Todos os direitos reservados.</p>
     </footer>
+    <!--Prefabs-->
+    <div id="prefabs" hidden>
+        <img id="bdt-image" class="w-32 h-32 md:w-40 md:h-40 box-border object-cover" alt="Foto da ave">
+    </div>
     <script type="application/javascript" src="/tinymce.min.js"></script>
     <script type="application/javascript" src="/public/js/tinymce-config.js"></script>
+    <script src="/axios/dist/axios.min.js"></script>
+    <script src="/public/js/bird_add.js"></script>
 </body>
 </html>

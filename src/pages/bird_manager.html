@@ -52,7 +52,7 @@
         </div>
     </div>
 
-    <div id="prefabs" hidden disable>
+    <div id="prefabs" hidden>
         <!--Prefabs-->
         <div class="flex bg-lime-100 box-shadow rounded" id="bird-data">
             <img class="box-border h-40 w-32 object-cover mr-2" src=":bdt-image:" alt="Foto ave" srcset="">
@@ -60,15 +60,13 @@
                 <p id="bdt-nome">:bdt-nome:</p>
                 <i id="bdt-nomecientifico">:bdt-nomecientifico:</i>
                 <div class="absolute bottom-2 space-x-2">
-                    <i id="btn-delete" class="fa fa-trash" style="font-size: 2em;"></i>
-                    <i id="btn-edit" class="fa fa-edit" style="font-size: 2em;"></i>
+                    <i id="btn-delete" class="fa fa-trash cursor-pointer" style="font-size: 2em;"></i>
+                    <i id="btn-edit" class="fa fa-edit cursor-pointer" style="font-size: 2em;"></i>
                 </div>
             </div> 
         </div>
     </div>
 
-    <script type="application/javascript" src="/tinymce.min.js"></script>
-    <script type="application/javascript" src="/public/js/tinymce-config.js"></script>
     <script src="/axios/dist/axios.min.js"></script>
     <script type="module" src="/public/js/bird_manager.js"></script>
 </body>
