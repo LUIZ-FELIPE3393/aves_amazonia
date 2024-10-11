@@ -2,17 +2,13 @@ CREATE SCHEMA aves_amazonia;
 
 USE aves_amazonia;
 
-ALTER USER 'cliente'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
-ALTER USER 'membro'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
-ALTER USER 'dba'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
-
-GRANT SELECT, UPDATE, DELETE, INSERT ON aves_amazonia.post TO 'membro'@'localhost';
-GRANT SELECT, UPDATE, DELETE, INSERT ON aves_amazonia.bird_data TO 'membro'@'localhost';
-GRANT SELECT, UPDATE, DELETE, INSERT ON aves_amazonia.bird_image TO 'membro'@'localhost';
-
 GRANT ALL PRIVILEGES ON *.* TO 'dba'@'localhost' WITH GRANT OPTION;
 
 SET autocommit = 0;
+
+CREATE USER 'cliente'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+CREATE USER 'membro'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+CREATE USER 'dba'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
 
 CREATE TABLE user (
 	usr_id INT,
@@ -152,3 +148,7 @@ SELECT bdt_nome, bdt_nomecientifico, MIN(bim_image) AS thumbnail
 FROM bird_data 
 INNER JOIN bird_image ON bim_bdt_id = bdt_id 
 GROUP BY (bdt_id);
+
+GRANT SELECT, UPDATE, DELETE, INSERT ON aves_amazonia.post TO 'membro'@'localhost';
+GRANT SELECT, UPDATE, DELETE, INSERT ON aves_amazonia.bird_data TO 'membro'@'localhost';
+GRANT SELECT, UPDATE, DELETE, INSERT ON aves_amazonia.bird_image TO 'membro'@'localhost';
