@@ -21,7 +21,7 @@ axios.get('/bird')
             })
             birdElement.querySelector("#btn-edit").addEventListener('click', (e) => {
                 localStorage.setItem('editBird', bird['bdt_id'])
-                location.replace('/adicionar-ave')
+                window.location.href = '/adicionar-ave'
             })
             document.querySelector('#bird-list').appendChild(birdElement)
         }

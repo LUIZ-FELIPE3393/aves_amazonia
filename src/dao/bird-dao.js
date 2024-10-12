@@ -30,7 +30,7 @@ async function tranAddBird(req, res) {
         connection.beginTransaction()
 
         const resultSet = await connQuery(`CALL sp_add_bird('${req.body['name']}', '${req.body['binomial']}', ${req.body['extinction']},`+
-            `'${req.body['description']}', 'a', '${imagesStr}')`)
+            `'${basereq.body['description']}', 'a', '${imagesStr}')`)
         
         var index = 1;
         if (!fs.existsSync(targetPath)) {

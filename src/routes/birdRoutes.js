@@ -11,7 +11,8 @@ const fileErrorHandler = async (err, res) => {
 }
 
 BirdRoutes.put('/', upload.array('images'), async (req, res) => {
-    queryDatabase(`SELECT * FROM bird_data WHERE bdt_nome = ${req.body['name']}`).then(result => {
+    console.log('result')
+    queryDatabase(`SELECT * FROM bird_data WHERE bdt_nome = '${req.body['name']}'`).then(result => {
         console.log(result)
         tranAddBird(req, res).then(json => {
             console.log(json)
@@ -45,6 +46,14 @@ BirdRoutes.get('/:id', (req, res) => {
                 for (const image of imageJson) {
                     imageArr.push(image['bim_image'])
                 }
+                
+                if (birdJson[0] === undefined) {
+                    console.error('BirdJson is undefined')
+                    console.log(birdJson)
+                    res.status(500).send('BirdJson is undefined')
+                    return
+                }
+
                 birdJson[0]['images'] = imageArr;
 
                 res.json(birdJson[0])

@@ -8,7 +8,7 @@
 </head>
 <body>
     <!--Header-->
-    <nav class="border-b-2 mb-4">
+    <nav class="border-b-2 mb-4 shadow-md">
         <ul class="flex justify-around p-4">
             <div>
                 <li><a href="/"><img class="h-10" src="/public/images/Logo.png" alt="Aves Amazônia" srcset=""></a></li>
@@ -38,14 +38,14 @@
                 </div>
                 <div class="grid gap-2 grid-cols-3 lg:grid-cols-6">
                     <label for="images" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Galeria</label>
-                    <input class="col-span-2" type="file" accept="image/png, image/jpeg, image/webp" name="images" id="images" multiple>
+                    <input class="col-span-2" type="file" accept="image/png, image/jpeg, image/webp" name="images" id="images" onchange="previewFile()" multiple>
                 </div>
-                <div id="galeria" class="grid grid-cols-3 lg:grid-cols-6">
+                <div id="galeria" class="grid gap-2 grid-cols-3 lg:grid-cols-6">
 
                 </div>
                 <div>
                     <p class="font-bold mb-4 text-lg">Artigo de descrição:</p>
-                    <textarea id="tinymce" name="description" id="description">Escreva o artigo aqui...</textarea>
+                    <textarea id="tinymce" name="description"></textarea>
                 </div>
                 <button class="p-2 bg-lime-800 rounded font-bold text-white" type="submit">Finalizar</button>
             </form>
@@ -59,9 +59,9 @@
     <div id="prefabs" hidden>
         <img id="bdt-image" class="w-32 h-32 md:w-40 md:h-40 box-border object-cover" alt="Foto da ave">
     </div>
-    <script type="application/javascript" src="/tinymce.min.js"></script>
-    <script type="application/javascript" src="/public/js/tinymce-config.js"></script>
     <script src="/axios/dist/axios.min.js"></script>
     <script src="/public/js/bird_add.js"></script>
+    <script type="application/javascript" src="/tinymce.min.js"></script>
+    <script type="application/javascript" src="/public/js/tinymce-config.js"></script>
 </body>
 </html>

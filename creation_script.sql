@@ -2,13 +2,13 @@ CREATE SCHEMA aves_amazonia;
 
 USE aves_amazonia;
 
-GRANT ALL PRIVILEGES ON *.* TO 'dba'@'localhost' WITH GRANT OPTION;
-
 SET autocommit = 0;
 
 CREATE USER 'cliente'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
 CREATE USER 'membro'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
 CREATE USER 'dba'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+
+GRANT ALL PRIVILEGES ON *.* TO 'dba'@'localhost' WITH GRANT OPTION;
 
 CREATE TABLE user (
 	usr_id INT,
@@ -28,8 +28,8 @@ CREATE TABLE post (
     FOREIGN KEY (pos_usr_id) REFERENCES user(usr_id)
 );
 
-DROP TABLE bird_image;
-DROP TABLE bird_data;
+DROP TABLE IF EXISTS bird_image;
+DROP TABLE IF EXISTS bird_data;
 CREATE TABLE bird_data (
 	bdt_id INT AUTO_INCREMENT,
     bdt_nome VARCHAR(64) UNIQUE,
@@ -79,12 +79,7 @@ VALUES (3, "/papagaioverdadeiro/image1.jpg"),
 (3, "/papagaioverdadeiro/image2.jpg"),
 (3, "/papagaioverdadeiro/image3.jpg");
 
-SELECT bdt_nome, bdt_nomecientifico, bdt_descricao, bdt_escextincao, bim_image
-                    FROM bird_data 
-                    INNER JOIN bird_image ON bim_bdt_id = bdt_id 
-                    WHERE bdt_id = 1;
-
-DROP PROCEDURE sp_add_bird;
+DROP PROCEDURE IF EXISTS sp_add_bird;
 DELIMITER ##
 CREATE PROCEDURE sp_add_bird(p_nome VARCHAR(64), p_nomecientifico VARCHAR(64), p_escextincao INT UNSIGNED, p_descricao TEXT, p_referencias TEXT, p_imagens TEXT)
 BEGIN
@@ -115,12 +110,7 @@ END ##
 DELIMITER ;
 GRANT EXECUTE ON PROCEDURE aves_amazonia.sp_add_bird TO 'membro'@'localhost';
 
-CALL sp_add_bird('a', 'a', 3, 'a', 'a', 'a;b;c;');
-
-SELECT LEFT('a;b;c', LOCATE(';', 'a;b;c;'));
-SELECT length(SUBSTRING('c;', LOCATE(';', 'c;') + 1));
-
-DROP PROCEDURE sp_list_bird_images;
+DROP PROCEDURE IF EXISTS sp_list_bird_images;
 DELIMITER ##
 CREATE PROCEDURE sp_list_bird_images(bird_name VARCHAR(64))
 BEGIN
@@ -132,7 +122,7 @@ DELIMITER ;
 GRANT EXECUTE ON PROCEDURE aves_amazonia.sp_list_bird_images TO 'cliente'@'localhost';
 GRANT EXECUTE ON PROCEDURE aves_amazonia.sp_list_bird_images TO 'membro'@'localhost';
 
-DROP PROCEDURE sp_delete_bird;
+DROP PROCEDURE IF EXISTS sp_delete_bird;
 DELIMITER ##
 CREATE PROCEDURE sp_delete_bird(bird_id INT)
 BEGIN
@@ -143,11 +133,6 @@ BEGIN
 END ##
 DELIMITER ;
 GRANT EXECUTE ON PROCEDURE aves_amazonia.sp_delete_bird TO 'membro'@'localhost';
-
-SELECT bdt_nome, bdt_nomecientifico, MIN(bim_image) AS thumbnail
-FROM bird_data 
-INNER JOIN bird_image ON bim_bdt_id = bdt_id 
-GROUP BY (bdt_id);
 
 GRANT SELECT, UPDATE, DELETE, INSERT ON aves_amazonia.post TO 'membro'@'localhost';
 GRANT SELECT, UPDATE, DELETE, INSERT ON aves_amazonia.bird_data TO 'membro'@'localhost';
