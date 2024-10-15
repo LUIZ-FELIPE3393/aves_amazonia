@@ -10,8 +10,16 @@ const fileErrorHandler = async (conn, err, res) => {
 }
 
 async function tranAddBird(req, res) {
+    /*
+        ## transação adição de registro de pássaro junto de sua galeria
+        @param: 
+            Req: Dados sobre o pássaro
+            Res: Parâmetro de resposta, retorna o estado da operação 
+        @return: Sucesso: Resultset da procedure SQL | Erro: Nada
+    */
     const normalName = req.body.name.normalize('NFD').replace(/[\u0300-\u036f]|\s/g, '').toLowerCase()
-    const targetPath = path.join(appRoot, '/public/images/birds/' + normalName)
+    const imageTargetPath = path.join(appRoot, '/public/images/birds/' + normalName)
+    const articleTargetPath = path.join(appRoot, '/public/html/birds/' + normalName)
     var imagesStr = '';
 
     for (const file of req.files) {
@@ -30,11 +38,13 @@ async function tranAddBird(req, res) {
         connection.beginTransaction()
 
         const resultSet = await connQuery(`CALL sp_add_bird('${req.body['name']}', '${req.body['binomial']}', ${req.body['extinction']},`+
-            `'${basereq.body['description']}', 'a', '${imagesStr}')`)
+            ` '${imagesStr}', '${normalName + '.html'}')`)
+
+        fs.writeFileSync(articleTargetPath + '.html', req.body['descricao']);
         
         var index = 1;
-        if (!fs.existsSync(targetPath)) {
-            fs.mkdirSync(targetPath);
+        if (!fs.existsSync(imageTargetPath)) {
+            fs.mkdirSync(imageTargetPath);
         }
         for (const file of req.files) {
             //console.log('\n\n*File:', file)
@@ -44,25 +54,25 @@ async function tranAddBird(req, res) {
             switch(fileExtension) {
                 case '.jpg':
                 case '.jpeg':
-                    fs.rename(tempPath, targetPath + '/' + file.originalname, 
+                    fs.rename(tempPath, imageTargetPath + '/' + file.originalname, 
                         err => { 
                             if (err) fileErrorHandler(connection, err, res);   
                         })
                     break;
                 case '.png':
-                    fs.rename(tempPath, targetPath + '/' + file.originalname, 
+                    fs.rename(tempPath, imageTargetPath + '/' + file.originalname, 
                         err => { 
                             if (err) fileErrorHandler(connection, err, res);
                         })
                     break;
                 case '.webp':   
-                    fs.rename(tempPath, targetPath + '/' + file.originalname, 
+                    fs.rename(tempPath, imageTargetPath + '/' + file.originalname, 
                         err => { 
                             if (err) fileErrorHandler(connection, err, res);
                         })
                     break;
                 default: 
-                    connection.rollback()
+                    connection.rollback()   
                     res.status(500).send(`File upload error: File format (${fileExtension}) not supported`)   
                     break;
             }  
