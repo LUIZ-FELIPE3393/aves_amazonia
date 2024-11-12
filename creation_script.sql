@@ -81,7 +81,7 @@ VALUES (3, "/papagaioverdadeiro/image1.jpg"),
 
 DROP PROCEDURE IF EXISTS sp_add_bird;
 DELIMITER ##
-CREATE PROCEDURE sp_add_bird(p_nome VARCHAR(64), p_nomecientifico VARCHAR(64), p_escextincao INT UNSIGNED, p_descricao TEXT, p_referencias TEXT, p_imagens TEXT)
+CREATE PROCEDURE sp_add_bird(p_nome VARCHAR(64), p_nomecientifico VARCHAR(64), p_escextincao INT UNSIGNED, p_imagens TEXT, p_descricao TEXT)
 BEGIN
     DECLARE v_imagem_left VARCHAR(255) DEFAULT p_imagens;
     DECLARE v_imagem_right VARCHAR(255) DEFAULT p_imagens;
@@ -90,19 +90,18 @@ BEGIN
 	IF p_escextincao > 6 THEN
 		SELECT 'ERRO - ESCALA DE EXTINCAO MAIOR QUE 6';
     ELSE
-		INSERT INTO bird_data (bdt_nome, bdt_nomecientifico, bdt_escextincao, bdt_descricao, bdt_referencias) 
-			VALUES (p_nome, p_nomecientifico, p_escextincao, p_descricao, p_referencias);
+		INSERT INTO bird_data (bdt_nome, bdt_nomecientifico, bdt_escextincao, bdt_descricao) 
+			VALUES (p_nome, p_nomecientifico, p_escextincao, p_descricao);
         SET v_ave_id = (SELECT bdt_id FROM bird_data WHERE bdt_nome = p_nome);
         
         image_loop: LOOP
+			IF LENGTH(v_imagem_right) = 0 THEN
+				LEAVE image_loop;
 			SET v_imagem_left = LEFT(v_imagem_right, LOCATE(';', v_imagem_right) - 1);
             SET v_imagem_right = SUBSTRING(v_imagem_right, LOCATE(';', v_imagem_right) + 1);
             
             INSERT INTO bird_image (bim_bdt_id, bim_image)
 				VALUES (v_ave_id, v_imagem_left);
-            
-            IF LENGTH(v_imagem_right) = 0 THEN
-				LEAVE image_loop;
 			END IF;
         END LOOP image_loop;
 	END IF;
