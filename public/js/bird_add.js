@@ -7,7 +7,6 @@ const galeriaImages = document.querySelector('#galeria')
 const prefabs = document.querySelector('#prefabs')
 
 document.addEventListener('DOMContentLoaded', (e) => {
-    previewFile()
     if (localStorage.getItem('editBird') !== 'None') {
         //Enable Bird edit
         axios.get('/bird/' + localStorage.getItem('editBird')).then(json => {
@@ -15,14 +14,15 @@ document.addEventListener('DOMContentLoaded', (e) => {
             inputName.value = json.data['bdt_nome'];
             inputBinomial.value = json.data['bdt_nomecientifico'];
             inputExtinction.value = json.data['bdt_escextincao'];
-            inputDescription.innerHTML = json.data['bdt_descricao'];
+            inputDescription.innerHTML = json.data['descricao'];
             var index = 0
-            for (const image of json.data['images']) {
+            for (const image of json.data['imagens']) {
                 const imgElement = prefabs.querySelector('#bdt-image').cloneNode()
                 index++
                 imgElement.setAttribute('src', '/public/images/birds/' + image)
                 galeriaImages.appendChild(imgElement)
             }
+        
             document.dispatchEvent(new Event('initData'))
         }).catch(err => {
             console.log(err)
@@ -54,13 +54,17 @@ function previewFile() {
     }
 }
 
-document.querySelector('form').addEventListener('submit', (e) => {
+document.querySelector('form').addEventListener('submit', async (e) => {
     e.preventDefault()
     const formData = new FormData(document.querySelector('form'))
 
-    axios.put('/bird', formData, {
+    const response = await axios.put('/bird', formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
     })
+    console.log(response)
+    setTimeout(() => {
+        location.replace('/gerenciar-ave')  
+    }, 500)    
 })

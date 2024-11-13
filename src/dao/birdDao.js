@@ -9,7 +9,7 @@ const fileErrorHandler = async (conn, err, res) => {
     res.status(500).send('File upload error: ' + JSON.stringify(err))   
 }
 
-async function tranAddBird(req, res) {
+async function tranAddBird(req, res, id) {
     /*
         ## transação adição de registro de pássaro junto de sua galeria
         @param: 
@@ -37,10 +37,20 @@ async function tranAddBird(req, res) {
     try {
         connection.beginTransaction()
 
-        const resultSet = await connQuery(`CALL sp_add_bird('${req.body['name']}', '${req.body['binomial']}', ${req.body['extinction']},`+
-            ` '${imagesStr}', '${normalName + '.html'}')`)
+        let resultSet;
+        if (id === undefined) {
+            console.log(`CALL sp_add_bird('${req.body['name']}', '${req.body['binomial']}', ${req.body['extinction']}, ` +
+                `'${imagesStr}', '${normalName + '.html'}')`)
+            resultSet = await connQuery(`CALL sp_add_bird('${req.body['name']}', '${req.body['binomial']}', ${req.body['extinction']}, ` +
+                `'${imagesStr}', '${normalName + '.html'}')`)
+        } else {
+            console.log(`CALL sp_update_bird(${id}, '${req.body['name']}', '${req.body['binomial']}', ` +
+                `${req.body['extinction']}, '${imagesStr}')`);
+            resultSet = await connQuery(`CALL sp_update_bird(${id}, '${req.body['name']}', '${req.body['binomial']}', ` +
+                `${req.body['extinction']}, '${imagesStr}')`)
+        }
 
-        fs.writeFileSync(articleTargetPath + '.html', req.body['descricao']);
+        fs.writeFileSync(articleTargetPath + '.html', req.body['description']);
         
         var index = 1;
         if (!fs.existsSync(imageTargetPath)) {
@@ -80,6 +90,7 @@ async function tranAddBird(req, res) {
         }   
     
         connection.commit()
+        console.log("✅ Committed")
         return resultSet
     } catch (err) {
         for (const file of req.files) {
@@ -88,11 +99,14 @@ async function tranAddBird(req, res) {
             })
         }
         connection.rollback()
-        console.error('Query error: ', err)
-        res.status(500).send(err)
+        throw Error(err)
     } finally {
         connection.end()
     }
 }
 
-module.exports = tranAddBird
+const BirdDAO = {
+    tranAddBird: tranAddBird
+}
+
+module.exports = BirdDAO

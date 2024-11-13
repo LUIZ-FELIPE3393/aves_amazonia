@@ -5,14 +5,19 @@ const modalNaoBtn = modal.querySelector("#btn-nao")
 
 let aveDeleteID = null;
 
-//Read data from Database
+// Lê dados do banco
 axios.get('/bird')
     .then(json => {
         for (const bird of json.data) {
+            let thumbnail = bird['thumbnail'];
+            if (thumbnail === null) {
+                thumbnail = "/bird-not-found.jpg"
+            }
+
             const birdElement = document.createElement('div')
             birdElement.setAttribute('class', 'flex bg-lime-100 shadow rounded')
             birdElement.innerHTML = prefabs.querySelector("#bird-data").innerHTML
-                .replace(':bdt-image:', '/public/images/birds' + bird['thumbnail'])
+                .replace(':bdt-image:', '/public/images/birds' + thumbnail)
                 .replace(':bdt-nome:', bird['bdt_nome'])
                 .replace(':bdt-nomecientifico:', bird['bdt_nomecientifico'])
             birdElement.querySelector("#btn-delete").addEventListener('click', (e) => {
@@ -27,12 +32,9 @@ axios.get('/bird')
         }
     })
 
+// Ações do modal de exclusão
 modalNaoBtn.addEventListener('click', (e) => {
     modal.classList.add('hidden')
-})
-
-document.querySelector('#add-bird').addEventListener('click', () => {
-    localStorage.setItem('editBird', 'None')
 })
 
 modalSimBtn.addEventListener('click', (e) => {
@@ -42,4 +44,9 @@ modalSimBtn.addEventListener('click', (e) => {
             location.reload()
         })
         .catch(err => console.error(err))
+})
+
+// Botão de adicionar pássaro
+document.querySelector('#add-bird').addEventListener('click', () => {
+    localStorage.setItem('editBird', 'None')
 })
