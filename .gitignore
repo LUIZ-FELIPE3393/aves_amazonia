@@ -131,3 +131,5 @@ dist
 
 # custom
 uploads/
+public/html
+public/images/birds
