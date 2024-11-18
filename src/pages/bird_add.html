@@ -26,11 +26,11 @@
             <form class="space-y-2" enctype="multipart/form-data" action="/bird" method="post">
                 <div class="grid gap-2 grid-cols-3 lg:grid-cols-6">
                     <label for="name" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Nome popular </label>
-                    <input class="bg-white col-span-2" type="text" name="name" id="name">
+                    <input class="bg-white col-span-2" type="text" name="name" id="name" required>
                 </div>
                 <div class="grid gap-2 grid-cols-3 lg:grid-cols-6">
                     <label for="binomial" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Nome científico</label>
-                    <input class="col-span-2" type="text" name="binomial" id="binomial">
+                    <input class="col-span-2" type="text" name="binomial" id="binomial" required>
                 </div>
                 <div class="grid gap-2 grid-cols-3 lg:grid-cols-6">
                     <label for="extinction" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Risco de extinção</label>
@@ -38,10 +38,9 @@
                 </div>
                 <div class="grid gap-2 grid-cols-3 lg:grid-cols-6">
                     <label for="images" class="bg-lime-800 mr-2 text-white font-bold p-1 rounded">Galeria</label>
-                    <input class="col-span-2" type="file" accept="image/png, image/jpeg, image/webp" name="images" id="images" onchange="previewFile()" multiple>
+                    <input class="col-span-2" type="file" accept="image/png, image/jpeg, image/webp" name="images" id="images" onchange="previewFile()" multiple required>
                 </div>
                 <div id="galeria" class="grid gap-2 grid-cols-3 lg:grid-cols-6">
-
                 </div>
                 <div>
                     <p class="font-bold mb-4 text-lg">Artigo de descrição:</p>

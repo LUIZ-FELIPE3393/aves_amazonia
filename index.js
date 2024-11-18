@@ -24,9 +24,18 @@ app.get('/adicionar-ave', (req, res) => {
     res.sendFile(path.join(__dirname, './src/pages/bird_add.html'))
 })
 
+app.get('/artigo-ave', (req, res) => {
+    res.sendFile(path.join(__dirname, './src/pages/bird_page.html'))
+})
+
 //Rotas banco
 app.use('/bird', BirdRoutes)
 
 app.listen(port, () => {
     console.log(`O site pode ser acessado em http://localhost:${port}`)
+})
+
+app.get('/readFile/:name', (req, res) => {
+    const file = fs.readFileSync(path.join(__dirname, '/public/html/birds/' + req.params['name']), {encoding: 'utf-8'});
+    res.send(file)
 })

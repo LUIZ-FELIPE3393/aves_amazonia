@@ -9,14 +9,13 @@
 </head>
 <body> 
     <!--Header-->
-    <nav class="border-b-2 mb-4">
+    <nav class="border-b-2 mb-4 shadow-md">
         <ul class="flex justify-around p-4">
             <div>
                 <li><a href="/"><img class="h-10" src="/public/images/Logo.png" alt="Aves Amazônia" srcset=""></a></li>
             </div>
             <div class="flex justify-around w-96">
-                <li class="flex"><a class="comp-navlink" href="#">Gerenciar posts</a></li>
-                <li class="flex"><a class="comp-navlink" href="#">Gerenciar galeria</a></li>
+                <li class="flex"><a class="comp-navlink" href="/gerenciar-ave">Gerenciar galeria</a></li>
             </div> 
         </ul>
     </nav>
@@ -56,11 +55,11 @@
         <!--Prefabs-->
         <div class="flex bg-lime-100 box-shadow rounded" id="bird-data">
             <img class="box-border h-40 w-32 object-cover mr-2" src=":bdt-image:" alt="Foto ave" srcset="">
-            <div class="relative">
+            <div class="relative w-full">
                 <p id="bdt-nome">:bdt-nome:</p>
                 <i id="bdt-nomecientifico">:bdt-nomecientifico:</i>
-                <div class="absolute bottom-2 space-x-2">
-                    <i id="btn-delete" class="fa fa-trash cursor-pointer" style="font-size: 2em;"></i>
+                <div class="flex absolute bottom-2 right-4 space-x-4">
+                    <i id="btn-delete" class="fa fa-trash cursor-pointer text-red-700" style="font-size: 2em;"></i>
                     <i id="btn-edit" class="fa fa-edit cursor-pointer" style="font-size: 2em;"></i>
                 </div>
             </div> 

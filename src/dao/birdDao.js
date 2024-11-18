@@ -39,13 +39,9 @@ async function tranAddBird(req, res, id) {
 
         let resultSet;
         if (id === undefined) {
-            console.log(`CALL sp_add_bird('${req.body['name']}', '${req.body['binomial']}', ${req.body['extinction']}, ` +
-                `'${imagesStr}', '${normalName + '.html'}')`)
             resultSet = await connQuery(`CALL sp_add_bird('${req.body['name']}', '${req.body['binomial']}', ${req.body['extinction']}, ` +
                 `'${imagesStr}', '${normalName + '.html'}')`)
         } else {
-            console.log(`CALL sp_update_bird(${id}, '${req.body['name']}', '${req.body['binomial']}', ` +
-                `${req.body['extinction']}, '${imagesStr}')`);
             resultSet = await connQuery(`CALL sp_update_bird(${id}, '${req.body['name']}', '${req.body['binomial']}', ` +
                 `${req.body['extinction']}, '${imagesStr}')`)
         }

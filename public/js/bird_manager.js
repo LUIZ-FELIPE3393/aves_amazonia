@@ -16,6 +16,7 @@ axios.get('/bird')
 
             const birdElement = document.createElement('div')
             birdElement.setAttribute('class', 'flex bg-lime-100 shadow rounded')
+            birdElement.setAttribute('bird-id', json['bdt_id'])
             birdElement.innerHTML = prefabs.querySelector("#bird-data").innerHTML
                 .replace(':bdt-image:', '/public/images/birds' + thumbnail)
                 .replace(':bdt-nome:', bird['bdt_nome'])

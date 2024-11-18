@@ -58,6 +58,12 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     e.preventDefault()
     const formData = new FormData(document.querySelector('form'))
 
+    formData.delete("description");
+
+    formData.append("description", inputDescription.value)
+    
+    console.log(inputDescription, formData);
+
     const response = await axios.put('/bird', formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
