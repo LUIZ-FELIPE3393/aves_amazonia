@@ -28,8 +28,8 @@
     <main class="flex max-w-[1280px] mr-auto ml-auto">
         <div class="grid grid-cols-3 gap-4 p-4 w-full">
             <div class="bg-lime-200 col-span-2 p-4 rounded">
-                <div class="grid">
-                    Hello
+                <div id="bird-gallery" class="grid">
+                    
                 </div>
             </div>
             <div class="bg-lime-200 p-4 rounded">
@@ -41,5 +41,20 @@
     <footer class="bg-lime-600 p-8">
         <p class="text-center">Copyright © 2024 Luiz Felipe Oliveira Dutra da Costa. Todos os direitos reservados.</p>
     </footer>
+
+    <div id="prefabs" hidden>
+        <!--Prefabs-->
+        <!--Bird item-->
+        <div class="flex bg-lime-100 box-shadow rounded" id="bird-data">
+            <img class="box-border h-40 w-32 object-cover mr-2" src=":bdt-image:" alt="Foto ave" srcset="">
+            <div class="relative w-full">
+                <p id="bdt-nome">:bdt-nome:</p>
+                <i id="bdt-nomecientifico">:bdt-nomecientifico:</i>
+            </div> 
+        </div>
+    </div>
+
+    <script src="/axios/dist/axios.min.js"></script>
+    <script src="/public/js/page_index.js"></script>
 </body>
 </html>
