@@ -13,11 +13,14 @@
             <div>
                 <li><a href="/"><img class="h-10" src="/public/images/Logo.png" alt="Aves Amazônia" srcset=""></a></li>
             </div>
-            <div class="flex justify-between w-96">
-                <li class="flex"><a class="comp-navlink" href="#">Trabalhe conosco</a></li>
-                <li class="flex"><a class="comp-navlink" href="#">Nossa Equipe</a></li>
-                <li class="flex"><a class="comp-navlink" href="#">Agendar visita</a></li>
-            </div> 
+            <div class="flex justify-between basis-3/4">
+                <div class="flex justify-around ml-auto w-1/2">
+                    <li class="flex"><a class="comp-navlink" href="#">Trabalhe conosco</a></li>
+                    <li class="flex"><a class="comp-navlink" href="#">Nossa Equipe</a></li>
+                    <li class="flex"><a class="comp-navlink" href="#">Agendar visita</a></li>
+                </div> 
+                <a class="comp-navlink" href="/gerenciar-ave"><img class="rounded-full h-12" src="/public/images/avatar.svg" alt="Perfil" srcset=""></a>
+            </div>
         </ul>
     </nav>
     <!--Banner-->
@@ -26,14 +29,9 @@
     </div>
     <!--Content-->
     <main class="flex max-w-[1280px] mr-auto ml-auto">
-        <div class="grid grid-cols-3 gap-4 p-4 w-full">
-            <div class="bg-lime-200 col-span-2 p-4 rounded">
-                <div id="bird-gallery" class="grid">
-                    
-                </div>
-            </div>
+        <div class="p-4 w-full">
             <div class="bg-lime-200 p-4 rounded">
-                World
+                <div id="bird-gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2"></div>
             </div>
         </div>
     </main>
@@ -45,16 +43,16 @@
     <div id="prefabs" hidden>
         <!--Prefabs-->
         <!--Bird item-->
-        <div class="flex bg-lime-100 box-shadow rounded" id="bird-data">
+        <a class="flex bg-lime-100 box-shadow rounded" id="bird-data" href="#">
             <img class="box-border h-40 w-32 object-cover mr-2" src=":bdt-image:" alt="Foto ave" srcset="">
             <div class="relative w-full">
                 <p id="bdt-nome">:bdt-nome:</p>
                 <i id="bdt-nomecientifico">:bdt-nomecientifico:</i>
             </div> 
-        </div>
+        </a>
     </div>
 
     <script src="/axios/dist/axios.min.js"></script>
-    <script src="/public/js/page_index.js"></script>
+    <script src="/public/js/index_page.js"></script>
 </body>
 </html>

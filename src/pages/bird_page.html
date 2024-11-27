@@ -11,13 +11,18 @@
 <body> 
     <!--Header-->
     <nav class="border-b-2 mb-4 shadow-md">
-        <ul class="flex justify-around p-4">
-            <div>
+        <ul class="block md:flex justify-around p-4">
+            <div class="flex justify-center">
                 <li><a href="/"><img class="h-10" src="/public/images/Logo.png" alt="Aves Amazônia" srcset=""></a></li>
             </div>
-            <div class="flex justify-around w-96">
-                <li class="flex"><a class="comp-navlink" href="/gerenciar-ave">Gerenciar galeria</a></li>
-            </div> 
+            <div class="flex justify-between mt-4 md:mt-0 md:basis-3/4">
+                <div class="flex justify-around md:ml-auto w-1/2">
+                    <li class="flex"><a class="comp-navlink" href="#">Trabalhe conosco</a></li>
+                    <li class="flex"><a class="comp-navlink" href="#">Nossa Equipe</a></li>
+                    <li class="flex"><a class="comp-navlink" href="#">Agendar visita</a></li>
+                </div> 
+                <a class="comp-navlink" href="/gerenciar-ave"><img class="rounded-full h-12" src="/public/images/avatar.svg" alt="Perfil" srcset=""></a>
+            </div>
         </ul>
     </nav>
     <!--Content-->
