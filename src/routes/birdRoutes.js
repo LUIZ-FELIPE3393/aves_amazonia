@@ -37,6 +37,9 @@ BirdRoutes.put('/', upload.array('images'), async (req, res) => {
                 res.status(500).send("Erro ao atualizar pássaro");
             })
         }
+    }).catch(e => {
+        console.error("ERRO - Falha em consultar informações sobre os pássaros: ", e);
+        res.status(500).send(e);
     })
 })
 
