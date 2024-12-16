@@ -10,13 +10,16 @@
 <body> 
     <!--Header-->
     <nav class="border-b-2 mb-4 shadow-md">
-        <ul class="flex justify-around p-4">
-            <div>
+        <ul class="block md:flex justify-around p-4">
+            <div class="flex justify-center">
                 <li><a href="/"><img class="h-10" src="/public/images/Logo.png" alt="Aves Amazônia" srcset=""></a></li>
             </div>
-            <div class="flex justify-around w-96">
-                <li class="flex"><a class="comp-navlink" href="/gerenciar-ave">Gerenciar galeria</a></li>
-            </div> 
+            <div class="flex justify-between mt-4 md:mt-0 md:basis-3/4">
+                <ul class="content-center space-x-8 md:ml-auto mr-16">
+                    <li class="inline-block"><a class="comp-navlink" href="/gerenciar-ave">Gerenciar galeria</a></li>
+                </ul> 
+                <a class="comp-navlink" href="/gerenciar-ave"><img class="rounded-full h-12" src="/public/images/avatar.svg" alt="Perfil" srcset=""></a>
+            </div>
         </ul>
     </nav>
     <!--Content-->
@@ -69,4 +72,16 @@
     <script src="/axios/dist/axios.min.js"></script>
     <script type="module" src="/public/js/bird_manager.js"></script>
 </body>
+<style>
+    body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+    }
+
+    main {
+        min-width: 80vw;
+    }
+</style>
 </html>

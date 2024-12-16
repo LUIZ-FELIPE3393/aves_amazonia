@@ -26,8 +26,25 @@
     </nav>
     <!--Content-->
     <main class="max-w-[1280px] mr-auto ml-auto grid grid-cols-3 mb-4 gap-4">
-        <div id="bird-article" class="p-4 bg-lime-200 col-span-2"></div>
-        <div id="bird-gallery" class="p-4 gap-4 grid grid-cols-2 bg-lime-200"></div>
+        <form class="p-4 bg-lime-200 col-span-2" method="post" action="action-agendar">
+            <h1 class="text-lg font-bold">Insira suas informações de contato</h1>
+            <p class="mb-4">O horário para visita é das 9:00 às 17:00 nos sábados</p>
+            <div class="space-y-4">
+                <div class="grid grid-cols-5 gap-2">
+                    <label for="ipt-nome" class="col-span-1 text-right content-center">Nome Completo:</label>
+                    <input id="ipt-nome" name="contact-name" class="col-span-3 rounded-lg p-2" required>
+                </div>
+                <div class="grid grid-cols-5 gap-2">
+                    <label for="ipt-nome" class="col-span-1 text-right content-center">Telefone:</label>
+                    <input id="ipt-telefone" name="contact-telefone" class="col-span-3 rounded-lg p-2" required>
+                </div>
+                <div class="grid grid-cols-5 gap-2">
+                    <label for="ipt-nome" class="col-span-1 text-right content-center">E-mail:</label>
+                    <input id="ipt-email" name="contact-email" class="col-span-3  rounded-lg p-2" required>
+                </div>
+                <button type="submit" class="bg-lime-700 p-2 rounded-lg font-bold text-white cursor-pointer hover:bg-lime-900">Enviar</button>
+            </div>
+        </form>
     </main>
     <!--Footer-->
     <footer class="bg-lime-600 p-8">

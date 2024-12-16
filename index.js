@@ -13,7 +13,7 @@ app.use('/axios', express.static(path.join(__dirname, 'node_modules', 'axios')))
 app.use('/public', express.static('./public'))
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './src/index.html'))
+    res.sendFile(path.join(__dirname, './src/pages/index.html'))
 })
 
 app.get('/gerenciar-ave', (req, res) => {
@@ -26,6 +26,14 @@ app.get('/adicionar-ave', (req, res) => {
 
 app.get('/artigo-ave', (req, res) => {
     res.sendFile(path.join(__dirname, './src/pages/bird_page.html'))
+})
+
+app.get('/agendar-visita', (req, res) => {
+    res.sendFile(path.join(__dirname, './src/pages/schedule.html'))
+})
+
+app.post('/action-agendar', (req, res) => {
+    res.sendFile(path.join(__dirname, './src/pages/schedule_sent.html'))
 })
 
 //Rotas banco

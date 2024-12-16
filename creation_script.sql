@@ -1,12 +1,14 @@
+CREATE USER 'cliente'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+CREATE USER 'membro'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+CREATE USER 'dba'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+
+DROP SCHEMA IF EXISTS aves_amazonia;
+
 CREATE SCHEMA aves_amazonia;
 
 USE aves_amazonia;
 
 SET autocommit = 0;
-
-CREATE USER 'cliente'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
-CREATE USER 'membro'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
-CREATE USER 'dba'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
 
 GRANT ALL PRIVILEGES ON *.* TO 'dba'@'localhost' WITH GRANT OPTION;
 
@@ -35,7 +37,7 @@ CREATE TABLE bird_data (
     bdt_nome VARCHAR(64) UNIQUE,
     bdt_nomecientifico VARCHAR(64),
     bdt_escextincao INT UNSIGNED,
-    bdt_descricao TEXT,
+    bdt_descricao VARCHAR(255),
     PRIMARY KEY (bdt_id)
 );
 
@@ -81,7 +83,7 @@ VALUES (3, "/papagaioverdadeiro/image1.jpg"),
 
 DROP PROCEDURE IF EXISTS sp_add_bird;
 DELIMITER ##
-CREATE PROCEDURE sp_add_bird(p_nome VARCHAR(64), p_nomecientifico VARCHAR(64), p_escextincao INT UNSIGNED, p_imagens TEXT, p_descricao TEXT)
+CREATE PROCEDURE sp_add_bird(p_nome VARCHAR(64), p_nomecientifico VARCHAR(64), p_escextincao INT UNSIGNED, p_imagens VARCHAR(255), p_descricao VARCHAR(255))
 BEGIN
     DECLARE v_imagem_left VARCHAR(255) DEFAULT p_imagens;
     DECLARE v_imagem_right VARCHAR(255) DEFAULT p_imagens;
@@ -90,24 +92,76 @@ BEGIN
 	IF p_escextincao > 6 THEN
 		SELECT 'ERRO - ESCALA DE EXTINCAO MAIOR QUE 6';
     ELSE
+		-- Insere a entrada sobre a ave na tabela bird_data
 		INSERT INTO bird_data (bdt_nome, bdt_nomecientifico, bdt_escextincao, bdt_descricao) 
 			VALUES (p_nome, p_nomecientifico, p_escextincao, p_descricao);
         SET v_ave_id = (SELECT bdt_id FROM bird_data WHERE bdt_nome = p_nome);
         
+        -- Adiciona as referências das imagens na tabela bird_image
         image_loop: LOOP
+			-- Sai do loop se não houver mais imagens para serem processadas
 			IF LENGTH(v_imagem_right) = 0 THEN
 				LEAVE image_loop;
+			END IF;
+            
+            -- Extrai um caminho de imagens do parâmetro p_imagens
 			SET v_imagem_left = LEFT(v_imagem_right, LOCATE(';', v_imagem_right) - 1);
+            
+            -- Mantém os caminhos de imagem não processados na variável v_imagem_right
             SET v_imagem_right = SUBSTRING(v_imagem_right, LOCATE(';', v_imagem_right) + 1);
             
+            -- Insere a entrada sobre a imagem na tabela bird_image
             INSERT INTO bird_image (bim_bdt_id, bim_image)
 				VALUES (v_ave_id, v_imagem_left);
-			END IF;
         END LOOP image_loop;
 	END IF;
 END ##
 DELIMITER ;
 GRANT EXECUTE ON PROCEDURE aves_amazonia.sp_add_bird TO 'membro'@'localhost';
+
+DROP PROCEDURE IF EXISTS sp_update_bird;
+DELIMITER ##
+CREATE PROCEDURE sp_update_bird(p_id INT, p_nome VARCHAR(64), p_nomecientifico VARCHAR(64), p_escextincao INT UNSIGNED, p_imagens TEXT)
+BEGIN
+    DECLARE v_imagem_left TEXT DEFAULT p_imagens;
+    DECLARE v_imagem_right TEXT DEFAULT p_imagens;
+
+	IF p_escextincao > 6 THEN
+		SELECT 'ERRO - ESCALA DE EXTINCAO MAIOR QUE 6';
+    ELSE
+		-- Retira as antigas entradas das imagens
+        DELETE FROM bird_image 
+        WHERE bim_bdt_id = p_id;
+    
+		-- Atualiza a entrada sobre a ave na tabela bird_data
+		UPDATE bird_data
+        SET 
+			bdt_nome = p_nome,
+			bdt_nomecientifico = p_nomecientifico,
+			bdt_escextincao = p_escextincao
+        WHERE bdt_id = p_id;
+        
+        -- Adiciona as referências das imagens na tabela bird_image
+        image_loop: LOOP
+			-- Sai do loop se não houver mais imagens para serem processadas
+			IF LENGTH(v_imagem_right) = 0 THEN
+				LEAVE image_loop;
+			END IF;
+            
+            -- Extrai um caminho de imagens do parâmetro p_imagens
+			SET v_imagem_left = LEFT(v_imagem_right, LOCATE(';', v_imagem_right) - 1);
+            
+            -- Mantém os caminhos de imagem não processados na variável v_imagem_right
+            SET v_imagem_right = SUBSTRING(v_imagem_right, LOCATE(';', v_imagem_right) + 1);
+            
+            -- Insere a entrada sobre a imagem na tabela bird_image
+            INSERT INTO bird_image (bim_bdt_id, bim_image)
+				VALUES (p_id, v_imagem_left);
+        END LOOP image_loop;
+	END IF;
+END ##
+DELIMITER ;
+GRANT EXECUTE ON PROCEDURE aves_amazonia.sp_update_bird TO 'membro'@'localhost';
 
 DROP PROCEDURE IF EXISTS sp_list_bird_images;
 DELIMITER ##

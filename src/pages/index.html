@@ -9,28 +9,30 @@
 <body>
     <!--Header-->
     <nav>
-        <ul class="flex justify-around p-4">
-            <div>
+        <ul class="block md:flex justify-around p-4">
+            <div class="flex justify-center">
                 <li><a href="/"><img class="h-10" src="/public/images/Logo.png" alt="Aves Amazônia" srcset=""></a></li>
             </div>
-            <div class="flex justify-between basis-3/4">
-                <div class="flex justify-around ml-auto w-1/2">
-                    <li class="flex"><a class="comp-navlink" href="#">Trabalhe conosco</a></li>
-                    <li class="flex"><a class="comp-navlink" href="#">Nossa Equipe</a></li>
-                    <li class="flex"><a class="comp-navlink" href="#">Agendar visita</a></li>
-                </div> 
-                <a class="comp-navlink" href="/gerenciar-ave"><img class="rounded-full h-12" src="/public/images/avatar.svg" alt="Perfil" srcset=""></a>
+            <div class="flex justify-between mt-4 md:mt-0 md:basis-3/4">
+                <ul class="content-center space-x-8 md:ml-auto mr-16">
+                    <li class="inline-block"><a class="comp-navlink" href="#">Nossa Equipe</a></li>
+                    <li class="inline-block"><a class="comp-navlink" href="/agendar-visita">Agendar visita</a></li>
+                </ul> 
+                <a class="comp-navlink" href="/gerenciar-ave"><img class="rounded-full h-12" 
+                    src="/public/images/avatar.svg" alt="Perfil" srcset=""></a>
             </div>
         </ul>
     </nav>
     <!--Banner-->
     <div>
-        <img src="/public/images/banner-aves_amazonia.jpg" alt="Banner Aves Amazonia" srcset="">
+        <img style="max-height: 16rem;" class="w-full object-cover overflow-hidden" 
+            src="/public/images/banner-aves_amazonia.jpg" alt="Banner Aves Amazonia" srcset="">
     </div>
     <!--Content-->
     <main class="flex max-w-[1280px] mr-auto ml-auto">
         <div class="p-4 w-full">
             <div class="bg-lime-200 p-4 rounded">
+                <h1 class="text-center text-xl font-bold mb-4">Confira nossa galeria</h1>
                 <div id="bird-gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2"></div>
             </div>
         </div>
@@ -55,4 +57,12 @@
     <script src="/axios/dist/axios.min.js"></script>
     <script src="/public/js/index_page.js"></script>
 </body>
+<style>
+    body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+    }
+</style>
 </html>

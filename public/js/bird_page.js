@@ -1,5 +1,5 @@
 const params = new URLSearchParams(location.search);
-const birdGalery = document.querySelector("#bird-galery");
+const birdGalery = document.querySelector("#bird-gallery");
 const birdArticle = document.querySelector("#bird-article");
 const imageModal = document.querySelector("#image-modal");
 
@@ -28,7 +28,11 @@ axios.get('/bird/' + params.get('id')).then(async (json) => {
     birdArticle.innerHTML = response.data;
 })
 
-imageModal.querySelector('button').addEventListener('click', () => {
+imageModal.querySelector('img').addEventListener('click', (e) => {
+    e = undefined
+})
+
+imageModal.addEventListener('click', () => {
     imageModal.classList.add('hidden');
 })
 
