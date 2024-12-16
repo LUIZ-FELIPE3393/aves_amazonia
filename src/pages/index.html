@@ -29,7 +29,7 @@
             src="/public/images/banner-aves_amazonia.jpg" alt="Banner Aves Amazonia" srcset="">
     </div>
     <!--Content-->
-    <main class="flex max-w-[1280px] mr-auto ml-auto">
+    <main class="flex mr-auto ml-auto">
         <div class="p-4 w-full">
             <div class="bg-lime-200 p-4 rounded">
                 <h1 class="text-center text-xl font-bold mb-4">Confira nossa galeria</h1>
@@ -45,7 +45,7 @@
     <div id="prefabs" hidden>
         <!--Prefabs-->
         <!--Bird item-->
-        <a class="flex bg-lime-100 box-shadow rounded" id="bird-data" href="#">
+        <a class="flex bg-lime-100 box-shadow rounded grow" id="bird-data" href="#">
             <img class="box-border h-40 w-32 object-cover mr-2" src=":bdt-image:" alt="Foto ave" srcset="">
             <div class="relative w-full">
                 <p id="bdt-nome">:bdt-nome:</p>
@@ -63,6 +63,10 @@
         margin: 0;
         display: grid;
         grid-template-rows: auto 1fr auto;
+    }
+
+    main {
+        min-width: 80vw;
     }
 </style>
 </html>
