@@ -54,17 +54,13 @@ function previewFile() {
     }
 }
 
-setInterval(() => {
-    console.log(tinymce.activeEditor.getContent())
-}, 200)
-
 document.querySelector('form').addEventListener('submit', async (e) => {
     e.preventDefault()
     const formData = new FormData(document.querySelector('form'))
 
     formData.delete("description");
 
-    formData.append("description", inputDescription.value)
+    formData.append("description", tinymce.activeEditor.getContent())
 
     const response = await axios.put('/bird', formData, {
         headers: {
