@@ -54,6 +54,10 @@ function previewFile() {
     }
 }
 
+setInterval(() => {
+    console.log(tinymce.activeEditor.getContent())
+}, 200)
+
 document.querySelector('form').addEventListener('submit', async (e) => {
     e.preventDefault()
     const formData = new FormData(document.querySelector('form'))
@@ -61,8 +65,6 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     formData.delete("description");
 
     formData.append("description", inputDescription.value)
-    
-    console.log(inputDescription, formData);
 
     const response = await axios.put('/bird', formData, {
         headers: {
@@ -71,6 +73,6 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     })
     console.log(response)
     setTimeout(() => {
-        location.replace('/gerenciar-ave')  
+        //location.replace('/gerenciar-ave')  
     }, 500)    
 })
